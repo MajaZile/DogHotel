@@ -1,0 +1,121 @@
+﻿@model HotelZaPse.Models.BO.RezervacijaBo
+
+@{
+
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Rezervacije";
+    }
+    else
+    {
+        ViewBag.Title = "Bookings";
+    }
+}
+
+
+
+<div class="page-header">
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Rezervacije</h2>
+    }
+    else
+    {
+        <h2><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</h2>
+    }
+</div>
+<div class="margtop20">
+    @{
+        if (User.IsInRole("admin"))
+        {
+
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="form-group">
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <label class="control-label col-md-2" for="Usluga_Naziv">Usluga</label>
+                        }
+                        else
+                        {
+                            <label class="control-label col-md-2" for="Usluga_Naziv">Service</label>
+                        }
+
+                        <div class="col-md-3">
+                            @*dropdown lista usluga*@
+                            @Html.DropDownListFor(
+                           model => model.Usluga.Id,
+                           new SelectList(ViewBag.Usluge, "UslugaId", "Naziv", Model.Usluga.Id),
+                           new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <label class="control-label col-md-2">Datum boravka</label>
+                        }
+                        else
+                        {
+                            <label class="control-label col-md-2">Date</label>
+                        }
+                        <div class="col-md-3">
+                            @{
+                                DateTime date = new DateTime();
+                                if (Model.Prijava == date)
+                                {
+                                    @Html.EditorFor(model => model.Prijava, new { htmlAttributes = new { @class = "form-control" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Prijava, new { htmlAttributes = new { @Value = @Model.Prijava.ToString("yyyy-MM-dd"), @class = "form-control" } })
+                                }
+                            }
+
+
+
+                            @Html.ValidationMessageFor(model => model.Prijava, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <input type="submit" value="Pretraži" class="btn btn-custom" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Search" class="btn btn-custom" />
+                            }
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            }
+
+        }
+        if (ViewBag.Rezervacije == null)
+        {
+            Html.RenderAction("GetRezervacije", "Rezervacija");
+        }
+        else
+        {
+            Html.RenderAction("GetRezervacije", "Rezervacija", new { rezervacije = ViewBag.Rezervacije });
+        }
+
+
+    }
+</div>

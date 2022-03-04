@@ -1,0 +1,178 @@
+﻿@model HotelZaPse.Models.BO.PasBo
+
+@{
+
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Kreiranje psa";
+    }
+    else
+    {
+        ViewBag.Title = "Create a dog";
+    }
+}
+
+<div class="page-header">
+
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2>Kreiraj novog psa</h2>
+    }
+    else
+    {
+        <h2>Create a new dog</h2>
+    }
+</div>
+
+<div class="margtop20">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <input type="hidden" name="urlReferrer" value="@ViewBag.UrlReferrer" />
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Name</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Rasa, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Breed</label>
+                }
+                <div class="col-md-8">
+                    @*dropdown lista rasa*@
+                    @Html.DropDownListFor(model => model.Rasa, new SelectList(ViewBag.rase), new { @class = "form-control" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Pol, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Gender</label>
+                }
+                <div class="col-md-8">
+                    <label class="radiocontainer">
+                        @Html.RadioButtonFor(model => model.Pol, true)
+                        <span class="radiocheckmark"></span>
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <p>Ženka</p>
+                        }
+                        else
+                        {
+                            <p>Female</p>
+                        }
+
+                    </label>
+                    <label class="radiocontainer">
+                        @Html.RadioButtonFor(model => model.Pol, false)
+                        <span class="radiocheckmark"></span>
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <p>Mužjak</p>
+                        }
+                        else
+                        {
+                            <p>Male</p>
+                        }
+
+                    </label>
+                    @Html.ValidationMessageFor(model => model.Pol, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-2"></div>
+
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        <label class="checkboxcontainer">
+
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <p>Sterilisan</p>
+                            }
+                            else
+                            {
+                                <p>Neutered</p>
+                            }
+                            @Html.EditorFor(model => model.Sterilisan, new { htmlAttributes = new { @type = "checkbox" } })
+                            <span class="checkmark"></span>
+
+                            @Html.ValidationMessageFor(model => model.Sterilisan, "", new { @class = "text-danger" })
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Description</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Opis, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <a class="btn btn-custom" href="javascript:history.back()">Odustani</a>
+                        <input type="submit" value="Snimi" class="btn btn-custom" />
+                    }
+                    else
+                    {
+                        <a class="btn btn-custom" href="javascript:history.back()">Cancel</a>
+                        <input type="submit" value="Save" class="btn btn-custom" />
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

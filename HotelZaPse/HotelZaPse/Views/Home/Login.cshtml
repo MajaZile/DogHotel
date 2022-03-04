@@ -1,0 +1,131 @@
+﻿@model HotelZaPse.Models.BO.UserBo
+
+@{
+    
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Logovanje";
+    }
+    else
+    {
+        ViewBag.Title = "Login";
+    }
+}
+<div class="page-header">
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2>Logovanje</h2>
+    }
+    else
+    {
+        <h2>Login</h2>
+    }
+</div>
+
+
+<div class="row margtop20">
+
+    <div class="col-md-6">
+
+        @using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "margtop20" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <label class="control-label col-md-2">Lozinka</label>
+                    }
+                    else
+                    {
+                        <label class="control-label col-md-2">Password</label>
+                    }
+
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <input type="submit" value="Uloguj se" class="btn btn-custom" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Log in" class="btn btn-custom" />
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+
+        <br /><br /><br />
+
+
+
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="opis">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <h3>
+                            Nemate svoj profil?
+                        </h3>
+                        <p>
+                            Ukoliko još uvek niste kreirali svoj profil, to možete uraditi klikom na dugme Registruj se.
+                        </p>
+                    }
+                    else
+                    {
+                        <h3>
+                            Don't have an account?
+                        </h3>
+                        <p>
+                            If you have not yet created your account, you can do so by clicking the Register button.
+                        </p>
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <br />
+                <br />
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.ActionLink("Registruj se", "../Vlasnik/Registration", null, new { @class = "btn btn-custom centar", @type = "button" })
+
+                }
+                else
+                {
+                    @Html.ActionLink("Register", "../Vlasnik/Registration", null, new { @class = "btn btn-custom centar", @type = "button" })
+
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-6">
+        <img src="~/Content/Img/dogDoorCroped.jpg" alt="Hotel za pse" class="img-custom ">
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

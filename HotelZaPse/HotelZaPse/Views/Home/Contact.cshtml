@@ -1,0 +1,60 @@
+﻿@{
+   
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Kontakt";
+    }
+    else
+    {
+        ViewBag.Title = "Contact";
+    }
+}
+<div class="page-header">
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2>Kontakt</h2>
+    }
+    else
+    {
+        <h2>Contact</h2>
+    }
+</div>
+
+
+
+<div class="margtop20">
+    <div class="col-md-6">
+
+        <div class="opis">
+            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+            {
+                <p>
+                    Za više informacija pozovite nas na kontakt telefon. Možete nas kontaktirati bilo kad, ono što nam je najvažnije jeste da budemo uvek dostupni za Vas.
+                </p>
+            }
+            else
+            {
+                <p>
+                    For more information contact us via phone or email. You can contact us at any time, the most important thing for us is to be always available for you.
+                </p>
+            }
+
+        </div>
+        <br />
+        <br />
+
+
+        <ul class="list-inline text-center padtop20">
+            <li><a class="iconinheritwheat" href="https://www.google.com/maps/place/44%C2%B046%2720.2%22N+20%C2%B019%2705.6%22E/&#64;44.7722794,20.3182169,545m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x76539cd1c8b644b8!8m2!3d44.7722794!4d20.3182169"><i class="fas fa-map-marker-alt fa-3x"></i><br />Adress, City</a></li>
+            <li><i class="fas fa-phone fa-3x"></i><br />+000 555 11 11</li>
+            <li><i class="fas fa-envelope fa-3x"></i><br />office@doghotel.com</li>
+        </ul>
+
+
+    </div>
+    <div class="col-md-6">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.4182537312827!2d20.316033515534443!3d44.77227777909893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7443a5a97ade959e!2zNDTCsDQ2JzIwLjIiTiAyMMKwMTknMDUuNiJF!5e0!3m2!1ssr!2srs!4v1646147487885!5m2!1ssr!2srs" style="width:100%; min-height:400px; border:0px" allowfullscreen="" loading="lazy"></iframe>
+
+    </div>
+
+</div>

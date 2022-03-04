@@ -1,0 +1,128 @@
+﻿@{
+    
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Početna";
+    }
+    else
+    {
+        ViewBag.Title = "Home";
+    }
+}
+
+
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="~/Content/Img/dog-house.png" alt="dog-house" class="opacityimg">
+            <div class="caption">
+                <h2>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Smeštaj</span>
+                    }
+                    else
+                    {
+                        <span>Accommodation</span>
+                    }
+                </h2>
+
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p>Dog Hotel nudi prirodno, sigurno i udobno okruženje za vašeg najboljeg prijatelja.</p>
+                }
+                else
+                {
+                    <p>Dog Hotel offers a natural, safe and comfortable environment for your best friend.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="~/Content/Img/pet-food.png" alt="pet-food" class="opacityimg">
+            <div class="caption">
+                <h2>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Hrana</span>
+                    }
+                    else
+                    {
+                        <span>Food</span>
+                    }
+                </h2>
+
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p>Nudimo veliki izbor najkvalitetnije hrane za Vaše ljubimce, dovoljan da zadovolji čak i najprobirljivije pse.</p>
+                }
+                else
+                {
+                    <p>
+                        We offer a large selection of the highest quality food for your pets, enough to satisfy even the pickiest dogs.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+            <img src="~/Content/Img/stethoscope.png" alt="doctor" class="opacityimg">
+            <div class="caption">
+                <h2>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Veterinar</span>
+                    }
+                    else
+                    {
+                        <span>Veterinarian</span>
+                    }
+                </h2>
+
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p>U sklopu hotela imamo tim veterinara. Zdravlje Vaših ljubimaca je najvažnije.</p>
+                }
+                else
+                {
+                    <p>
+                        We have a team of veterinarians within the hotel. What is most important is your pet's health.
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="~/Content/Img/dog2.jpg" alt="pas">
+        </div>
+        <div class="item">
+            <img src="~/Content/Img/dog3.png" alt="pas">
+
+        </div>
+        <div class="item">
+            <img src="~/Content/Img/dog4.jpg" alt="pas">
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div> <!-- kraj Carousel -->

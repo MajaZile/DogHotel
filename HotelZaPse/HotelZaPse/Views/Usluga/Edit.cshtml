@@ -1,0 +1,130 @@
+﻿@model HotelZaPse.Models.BO.UslugaBo
+
+@*@{
+    ViewBag.Title = Model.Naziv + " | Izmena usluge";
+}*@
+<div class="page-header">
+    <h2>Izmeni uslugu</h2>
+</div>
+
+
+<div class="margtop20">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            @*izmena polja Naziv je dozvoljena ako se usluga ne koristi ni u jednoj rezervaciji*@
+            @if (ViewBag.Used == true)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Naziv, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        <a href="#" data-toggle="popover" data-content="Naziv ne može biti promenjen.">
+                            @Html.EditorFor(model => model.Naziv, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </a>
+                        @Html.ValidationMessageFor(model => model.Naziv, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Naziv, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Naziv, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Naziv, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cena, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Cena, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cena, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*izmena polja Opis je dozvoljena ako se usluga ne koristi ni u jednoj rezervaciji*@
+            @if (ViewBag.Used == true)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+
+                        <a href="#" data-toggle="popover" data-content="Opis ne može biti promenjen.">
+                            @Html.EditorFor(model => model.Opis, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </a>
+                        @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Opis, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Kapacitet, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Kapacitet, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Kapacitet, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2"></div>
+
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        <label class="checkboxcontainer">
+                            <p>Aktivna</p>
+                            @Html.EditorFor(model => model.Aktivna, new { htmlAttributes = new { @type = "checkbox" } })
+                            <span class="checkmark"></span>
+
+                            @Html.ValidationMessageFor(model => model.Aktivna, "", new { @class = "text-danger" })
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    @Html.ActionLink("Odustani", "Index", null, new { @class = "btn btn-custom", @type = "button" })
+                    <input type="submit" value="Snimi" class="btn btn-custom" />
+
+                </div>
+            </div>
+
+
+        </div>
+
+    }
+    </div>
+    @{
+        HotelZaPse.Models.EFRepository.UslugaRepository usluag = new HotelZaPse.Models.EFRepository.UslugaRepository();
+
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>

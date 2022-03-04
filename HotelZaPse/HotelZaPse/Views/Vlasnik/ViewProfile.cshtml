@@ -1,0 +1,116 @@
+﻿@model HotelZaPse.Models.BO.VlasnikBo
+
+@{
+    ViewBag.Title = Model.Ime + " " + Model.Prezime;
+}
+
+<div class="page-header">
+    <h2><i class="fas fa-user fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp; @Html.DisplayFor(model => model.Ime) @Html.DisplayFor(model => model.Prezime)</h2>
+</div>
+
+
+
+<div class="form-horizontal margtop20 col-md-offset-1">
+    <div class="form-group">
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">First name</label>
+        }
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Ime)
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Prezime, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Last name</label>
+        }
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Prezime)
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Mail)
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Adresa, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Adress</label>
+        }
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Adresa)
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Telefon, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Phone</label>
+        }
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Telefon)
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+
+
+            @if (User.IsInRole("vlasnik"))
+            {
+                if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.ActionLink("Izmeni", "Edit", null, new { @class = "btn btn-custom" })
+                }
+                else
+                {
+                    @Html.ActionLink("Edit", "Edit", null, new { @class = "btn btn-custom" })
+                }
+
+            }
+
+        </div>
+    </div>
+
+</div>
+
+
+
+@if (User.IsInRole("vlasnik"))
+{
+    Html.RenderAction("GetPsi", "Pas");
+}
+

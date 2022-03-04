@@ -1,0 +1,181 @@
+﻿@model HotelZaPse.Models.BO.VlasnikBo
+
+@{
+
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Registracija";
+    }
+    else
+    {
+        ViewBag.Title = "Register";
+    }
+}
+
+<div class="page-header">
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2>Kreiraj svoj profil</h2>
+    }
+    else
+    {
+        <h2>Create an account</h2>
+    }
+
+</div>
+<div class="row margtop20">
+    <div class="col-md-6">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            <div class="opis">
+                <p>Registracijom na naš sajt omogućavate sebi da na jednostavan način napravite rezervacije za Vaše pse.</p>
+            </div>
+        }
+        else
+        {
+            <div class="opis">
+                <p>By registering on our site, you can easily book our services for your dogs.</p>
+            </div>
+        }
+
+
+    </div>
+    <div class="col-md-6">
+        <i class="fas fa-paw pull-right fa-5x"></i>
+    </div>
+</div>
+
+
+
+
+
+<div class="margtop20">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">First name</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @placeholder = "Pera" } })
+                    @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Prezime, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Last name</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Prezime, new { htmlAttributes = new { @class = "form-control", @placeholder = "Perić" } })
+                    @Html.ValidationMessageFor(model => model.Prezime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Adresa, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Adress</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Adresa, new { htmlAttributes = new { @class = "form-control", @placeholder = "Bulevar kralja Aleksandra 12a, Beograd" } })
+                    @Html.ValidationMessageFor(model => model.Adresa, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Telefon, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Phone</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Telefon, new { htmlAttributes = new { @class = "form-control", @placeholder = "+381661234567 / 0661234567 / 0111234567" } })
+                    @Html.ValidationMessageFor(model => model.Telefon, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control", @placeholder = "pera.peric123@gmail.com" } })
+                    @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Lozinka, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Password</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Lozinka, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Lozinka, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <label class="control-label col-md-2" for="Lozinka2">Potvrdi lozinku</label>
+                }
+                else
+                {
+                    <label class="control-label col-md-2" for="Lozinka2">Repeat password</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Lozinka2, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Lozinka2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    @*@Html.ActionLink("Odustani", "../Home/Index", null, new { @class = "btn btn-custom", @type = "button" })*@
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <input type="submit" value="Registruj se" class="btn btn-custom" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Register" class="btn btn-custom" />
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    }
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

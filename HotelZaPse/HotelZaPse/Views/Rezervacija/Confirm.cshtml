@@ -1,0 +1,174 @@
+﻿@model HotelZaPse.Models.BO.RezervacijaBo
+
+@{
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Potvrdi rezervaciju";
+    }
+    else
+    {
+        ViewBag.Title = "Confirm";
+    }
+
+}
+
+
+<div class="page-header">
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2><i class="far fa-calendar-check"></i>&nbsp;&nbsp;&nbsp;&nbsp;Potvrdi rezervaciju</h2>
+    }
+    else
+    {
+        <h2><i class="far fa-calendar-check"></i>&nbsp;&nbsp;&nbsp;&nbsp;Confirm</h2>
+    }
+
+</div>
+
+<div class="row margtop20">
+
+
+
+    <div class="col-md-6">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            foreach (var item in Model.SelectedPasIds)
+            {
+                <input type="hidden" name="SelectedPasIds" value="@item" />
+            }
+            @Html.HiddenFor(model => model.Prijava)
+            @Html.HiddenFor(model => model.Odjava)
+            @Html.HiddenFor(model => model.Napomena)
+            @Html.HiddenFor(model => model.Usluga.Id)
+
+
+            <div class="admin-usluga lrpadding">
+                <h4>
+                    <span class="feature">
+                        @if (Model.SelectedPasIds.Count() == 1)
+                        {
+                            if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span>Pas: </span>
+                            }
+                            else
+                            {
+                                <span>Dog: </span>
+                            }
+
+                        }
+                        else
+                        {
+                            if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span>Psi: </span>
+                            }
+                            else
+                            {
+                                <span>Dogs: </span>
+                            }
+                        }
+                    </span><span class="value">@ViewBag.dogsString</span>
+                </h4>
+
+                <h4>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span class="feature">Usluga: </span>
+                    }
+                    else
+                    {
+                        <span class="feature">Service: </span>
+                    }
+
+                    <span class="value">@Html.DisplayFor(model => model.Usluga.Naziv)</span>
+                </h4>
+                <div class="opis">
+                    <p>
+                        @Html.DisplayFor(model => model.Usluga.Opis)
+                    </p>
+                </div>
+
+                <h4>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span class="feature">Prijava: </span>
+                    }
+                    else
+                    {
+                        <span class="feature">Check-in: </span>
+                    }
+                    <span class="value">@Html.DisplayFor(model => model.Prijava)</span>
+                </h4>
+
+                <h4>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span class="feature">Odjava: </span>
+                    }
+                    else
+                    {
+                        <span class="feature">Check-out: </span>
+                    }
+                    <span class="value">@Html.DisplayFor(model => model.Odjava)</span>
+                </h4>
+
+                <h4>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span class="feature">Napomena: </span>
+                    }
+                    else
+                    {
+                        <span class="feature">Note: </span>
+                    }
+                    <span class="value">@Html.DisplayFor(model => model.Napomena)</span>
+                </h4>
+                <h4>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span class="feature">Ukupna cena: </span>
+                    }
+                    else
+                    {
+                        <span class="feature">Total: </span>
+                    }
+                </h4>
+            </div>
+
+            <div class="price1 margbot20">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <h3>@ViewBag.UkupnaCena<span> dinara</span></h3>
+                }
+                else
+                {
+                    <h3>@ViewBag.UkupnaCena<span> din</span></h3>
+                }
+            </div>
+
+            <div class="form-group margtop20">
+                <div class="col-md-offset-3 col-md-8 margtop20">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <a class="btn btn-custom" href="javascript:history.back()">Nazad</a>
+                        <input type="submit" value="Rezerviši" class="btn btn-custom" />
+                    }
+                    else
+                    {
+                        <a class="btn btn-custom" href="javascript:history.back()">Back</a>
+                        <input type="submit" value="Book" class="btn btn-custom" />
+                    }
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <div class="col-md-6">
+        <img src="~/Content/Img/dog1canvas.jpg" alt="Hotel za pse" class="img-custom">
+    </div>
+</div>

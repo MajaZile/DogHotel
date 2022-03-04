@@ -1,0 +1,171 @@
+﻿@model IEnumerable<HotelZaPse.Models.BO.UslugaBo>
+
+
+<div class="pricing-table">
+    <div class="row justify-content-md-center">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-5 col-lg-4">
+                <div class="item">
+                    <div class="heading">
+                        <a class="iconblackhovwheat" href="@Url.Action("ViewUsluga", "Usluga", new { id = item.Id })">
+                            <h3>@Html.DisplayFor(modelItem => item.Naziv)</h3>
+                        </a>
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => item.Opis)</p>
+
+                    @if (User.IsInRole("admin"))
+                    {
+
+
+
+                        <div class="features">
+                            @if (User.IsInRole("admin"))
+                            {
+                                <h4>
+                                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        <span class="feature">Šifra: </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="feature">Id: </span>
+                                    }
+                                    <span class="value">@Html.DisplayFor(modelItem => item.Id)</span>
+                                </h4>
+
+                            }
+
+                            <h4>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <span class="feature">Kapacitet: </span>
+                                }
+                                else
+                                {
+                                    <span class="feature">Capacity: </span>
+                                }
+                                <span class="value">@Html.DisplayFor(modelItem => item.Kapacitet)</span>
+                            </h4>
+
+                            <h4>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <span class="feature">Aktivna: </span>
+                                }
+                                else
+                                {
+                                    <span class="feature">Active: </span>
+                                }
+                                <span class="value">
+                                    @if (item.Aktivna == true)
+                                    {
+                                        if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                        {
+                                            <span class="value">Da </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="value">Yes </span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                        {
+                                            <span class="value">Ne </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="value">No </span>
+                                        }
+                                    }
+
+                                </span>
+                            </h4>
+
+                            <h4>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <span class="feature">Poslednja izmena: </span>
+                                }
+                                else
+                                {
+                                    <span class="feature">Last modified by: </span>
+                                }<span class="value">@Html.DisplayFor(modelItem => item.Admin.Mail)</span>
+                            </h4>
+                        </div>
+                    }
+                    <div class="price">
+                        <h4>
+                            @Html.DisplayFor(modelItem => item.Cena)
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span> dinara / noć</span>
+                            }
+                            else
+                            {
+                                <span> din / night</span>
+                            }
+                        </h4>
+                    </div>
+                    <div class="centar">
+                        @if (User.IsInRole("admin"))
+                        {
+                            if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                @Html.ActionLink("Izmeni", "Edit", new { id = item.Id }, new { @class = "btn btn-custom" })
+                                @Html.ActionLink("Obriši", "Delete", new { id = item.Id }, new { @class = "btn btn-custom" })
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-custom" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-custom" })
+
+                            }
+                        }
+                        else if (User.IsInRole("vlasnik"))
+                        {
+
+                        }
+                        else
+                        {
+                            if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                @Html.ActionLink("Rezerviši", "../Rezervacija/PsiCheckboxes", null, new { @class = "btn btn-custom" })
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Book", "../Rezervacija/PsiCheckboxes", null, new { @class = "btn btn-custom" })
+
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        }
+
+        @if (User.IsInRole("admin"))
+        {
+            <div class="col-md-5 col-lg-4">
+                <div class="new-usluga">
+                    <div class="vert-align">
+                        <a class="plus-usluga" href="@Url.Action("Create", "Usluga")">
+                            <i class="fas fa-plus fa-10x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+
+
+    </div>
+</div>

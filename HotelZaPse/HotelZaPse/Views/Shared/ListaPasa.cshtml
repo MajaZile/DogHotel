@@ -1,0 +1,198 @@
+﻿@model IEnumerable<HotelZaPse.Models.BO.PasBo>
+
+
+<div class="page-header">
+    <h2>
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            <span>Psi</span>
+        }
+        else
+        {
+            <span>Dogs</span>
+        }
+    </h2>
+</div>
+
+
+@if (Model.Count() == 0)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="opis">
+                <h3>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Nemate kreirane pse</span>
+                    }
+                    else
+                    {
+                        <span>No dogs created</span>
+                    }
+                </h3>
+                <p>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Kliknite na znak plus da biste kreirali svog prvog psa.</span>
+                    }
+                    else
+                    {
+                        <span>Click on the plus sign to create your first dog.</span>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+
+
+<div class="pricing-table">
+    <div class="row justify-content-md-center">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-5 col-lg-4">
+                <div class="item">
+                    <div class="heading">
+                        <a class="iconblackhovwheat" href="@Url.Action("ViewProfileByAdmin", "Pas", new { vid = item.Vlasnik.Id, pid = item.Id })">
+                            <h3>@Html.DisplayFor(modelItem => item.Ime)</h3>
+                        </a>
+                    </div>
+                    <p>@Html.DisplayFor(modelItem => item.Opis)</p>
+
+
+
+                    <div class="features">
+                        <h4>
+
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span class="feature">Rasa: </span>
+                            }
+                            else
+                            {
+                                <span class="feature">Breed: </span>
+                            }
+                            <span class="value">@Html.DisplayFor(modelItem => item.Rasa)</span>
+                        </h4>
+
+                        <h4>
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span class="feature">Pol: </span>
+                            }
+                            else
+                            {
+                                <span class="feature">Gender: </span>
+                            }
+                            <span class="value">
+                                @if (item.Pol == true)
+                                {
+                                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        <span class="value">Ženka</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="value">Female</span>
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        <span class="value">Mužjak</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="value">Male</span>
+                                    }
+                                }
+
+                            </span>
+                        </h4>
+                        <h4>
+
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span class="feature">Sterilisan: </span>
+                            }
+                            else
+                            {
+                                <span class="feature">Neutered: </span>
+                            }
+                            <span class="value">
+                                @if (item.Sterilisan == true)
+                                {
+                                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        <span class="value">Da</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="value">Yes</span>
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        <span class="value">Ne</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="value">No</span>
+                                    }
+                                }
+
+                            </span>
+                        </h4>
+                    </div>
+
+                    @*<div class="price">
+                            <h4>@Html.DisplayFor(modelItem => item.Cena)<span> dinara</span></h4>
+                        </div>*@
+                    <div class="centar">
+                        @if (User.IsInRole("vlasnik"))
+                        {
+                            if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                @Html.ActionLink("Izmeni", "Edit", "Pas", new { vid = item.Vlasnik.Id, pid = item.Id }, new { @class = "btn btn-custom" })
+                                @Html.ActionLink("Obriši", "Delete", "Pas", new { vid = item.Vlasnik.Id, pid = item.Id }, new { @class = "btn btn-custom" })
+
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Edit", "Edit", "Pas", new { vid = item.Vlasnik.Id, pid = item.Id }, new { @class = "btn btn-custom" })
+                                @Html.ActionLink("Delete", "Delete", "Pas", new { vid = item.Vlasnik.Id, pid = item.Id }, new { @class = "btn btn-custom" })
+
+                            }
+
+                        }
+                    </div>
+
+                </div>
+            </div>
+
+        }
+
+        @if (User.IsInRole("vlasnik"))
+        {
+            <div class="col-md-5 col-lg-4">
+                <div class="new-usluga" style="height:300px">
+                    <div class="vert-align">
+                        <a class="plus-usluga" href="@Url.Action("Create", "Pas")">
+                            <i class="fas fa-plus fa-10x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Usluge";
+}
+
+<div class="page-header">
+    <h2>Pansion za pse</h2>
+</div>
+
+
+@{Html.RenderAction("GetUsluge", "Usluga");}
+
+@if (!User.IsInRole("admin"))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="opis">
+                <h3>
+                    Materijali
+                </h3>
+                <p>
+                    Kućice su napravljene od drveta, zaštićene prirodnom zaštitom, koja pruža maksimalnu udobnost i sigurnost gostima. Drvo leti pruža prijatnu temperaturu i izolaciju od vrućine, a zimi zadržava temperaturu od oko 15 stepeni. Nema dahtanja ni drhtanja.
+                </p>
+            </div>
+            <div class="opis">
+                <h3>
+                    Prostor
+                </h3>
+                <p>
+                    Naši gosti preko godine žive u stanovima, pa im smeštaj u malim boksovima može biti stresan. Zato su naši boksovi dovoljno visoki, 2 metra. Apartmani su različitih dimenzija već prema navikama i potrebama psa, da bi svaka kuca imala onoliko prostora koliko joj je potrebno.
+                </p>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-6">
+            <img src="~/Content/Img/3.1.jpg" alt="Hotel za pse" class="img-custom">
+        </div>
+        <div class="col-md-6">
+            <img src="~/Content/Img/1.1.jpg" alt="Hotel za pse" class="img-custom">
+        </div>
+        <div class="col-md-6">
+
+            <div class="opis">
+                <h3>
+                    Udobnost
+                </h3>
+                <p>
+                    Svi apartmani imaju prirodno dnevno svetlo i noćno svetlo, jer se čak i najhrabriji ponekad uplaše mraka. Posude za hranu i vodu su higijenski održive, a za kuce koje su navikle da spavaju na mekanom - imamo prostirke.
+                </p>
+            </div>
+            <div class="opis">
+                <h3>
+                    Privatnost
+                </h3>
+                <p>
+                    Ukoliko se tako dogovorite sa svojim psom, možemo da mu obezbedimo potpunu privatnost i da ga zaštitimo od bilo kakvog uznemiravanja kao pravu zvezdu. VIPas može da se igra sam ili sama i da provodi odmor tako da mu drugi psi ne smetaju.
+                </p>
+            </div>
+
+
+
+        </div>
+    </div>
+}

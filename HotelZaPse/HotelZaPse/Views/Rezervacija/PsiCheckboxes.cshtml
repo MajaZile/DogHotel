@@ -1,0 +1,136 @@
+﻿@model HotelZaPse.Models.PsiCheckboxesViewModel
+
+@{
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = "Odaberi pse | Rezervacija";
+    }
+    else
+    {
+        ViewBag.Title = "Choose dogs | Booking";
+    }
+
+}
+
+<div class="page-header">
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Rezervacija - odabir pasa</h2>
+    }
+    else
+    {
+        <h2><i class="far fa-calendar-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Booking - dog selection</h2>
+    }
+
+</div>
+
+
+<div class="margtop20 row">
+    <div class="col-md-6">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+
+
+
+                @if (Model.PasList.Count() == 0)
+                {
+                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <div class="opis">
+                            <h3>
+                                Nemate kreirane pse
+                            </h3>
+                            <p>
+                                Da biste nastavili sa rezervacijom morate kreirati bar jednog psa.
+                                Klikom na dugme možete kreirati psa.
+                            </p>
+                        </div>
+                        <div class="col-md-offset-2">
+                            @Html.ActionLink("Kreiraj", "../Pas/Create", null, new { @class = "btn btn-custom", @type = "button" })
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="opis">
+                            <h3>
+                                No dogs created
+                            </h3>
+                            <p>
+                                You must create at least one dog to continue the booking process.
+                                You can create a dog by clicking on the button bellow.
+                            </p>
+                        </div>
+                        <div class="col-md-offset-2">
+                            @Html.ActionLink("Create", "../Pas/Create", null, new { @class = "btn btn-custom", @type = "button" })
+
+                        </div>
+                    }
+
+                }
+                else
+                {
+
+                    foreach (var item in Model.PasList)
+                    {
+
+
+                        <div class="col-md-offset-1 col-md-5">
+                            <div class="checkbox">
+                                <label class="checkboxcontainer">
+                                    <p>@item.Ime</p>
+                                    <input type="checkbox" name="SelectedPasIds" value="@item.Id" />
+
+                                    <span class="checkmark"></span>
+
+                                </label>
+                            </div>
+                        </div>
+
+
+
+
+                    }
+
+                    <div class="col-md-12 margbot20 margtop20">
+                        @Html.ValidationMessage("ZeroSelected", "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <a class="btn btn-custom" href="@Url.Action("Index", "Home")">Odustani</a>
+                                <input type="submit" value="Nastavi" class="btn btn-custom" />
+                            }
+                            else
+                            {
+                                <a class="btn btn-custom" href="@Url.Action("Index", "Home")">Cancel</a>
+                                <input type="submit" value="Continue" class="btn btn-custom" />
+                            }
+
+
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+    <div class="col-md-6">
+        <img src="~/Content/Img/6.1.jpg" alt="Hotel za pse" class="img-custom">
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

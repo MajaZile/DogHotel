@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel za Pse - @ViewBag.Title</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+    @Scripts.Render("~/Scripts/script.js")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/all.min.css")
+    @Styles.Render("~/Content/style.css")
+
+    <link href="~/Content/mystyle.css" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="mainContainer">
+        <div id="mainHeader">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="page-header">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="@Url.Action("Index", "Home")">
+                                    <img src="~/Content/Img/logos.png" alt="Hotel za pse" class="logo">
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <h1 class="header-p">Vaš najbolji prijatelj<br />zaslužuje samo najbolje</h1>
+                                }
+                                else
+                                {
+                                    <h1 class="header-p">Your best friend<br />deserves only the best</h1>
+                                }
+
+                            </div>
+                            <div class="col-md-4">
+
+
+
+                                <div class="pull-right">
+                                    <div class="row text-right lang-links">
+                                        <a href="@Url.Action("Language", "Home", new { lang = "RS", returnUrl = HttpContext.Current.Request.Url.LocalPath })">
+                                            RS
+                                        </a>
+                                        <span> | </span>
+                                        <a href="@Url.Action("Language", "Home", new { lang = "EN", returnUrl = HttpContext.Current.Request.Url.LocalPath })">
+                                            EN
+                                        </a>
+                                    </div>
+                                    <div class="row header-right-links">
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <a class="iconwhite" href="@Url.Action("Registration", "Vlasnik")">
+                                                <i class="fas fa-user-plus fa-3x"></i>   @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                                {
+                                                    <span>Registruj se</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Register</span>
+                                                }
+                                            </a>
+
+                                            <a class="iconwhite" href="@Url.Action("Login", "Home")">
+                                                <i class="fas fa-sign-in-alt fa-3x"></i> @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                                {
+                                                    <span>Uloguj se</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Login</span>
+                                                }
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="iconwhite" href="@Url.Action("Logout", "Home")">
+                                                <i class="fas fa-sign-out-alt fa-3x"></i> @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                                {
+                                                    <span>Odjavi se</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Logout</span>
+                                                }
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+
+                        <ul class="nav navbar-nav">
+
+
+
+                            <li>
+
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    @Html.ActionLink("Početna", "Index", "Home")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Home", "Index", "Home")
+                                }
+                            </li>
+
+                            <li>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    @Html.ActionLink("Usluge", "Index", "Usluga");
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Services", "Index", "Usluga");
+                                }
+
+                            </li>
+                            @if (!User.IsInRole("admin"))
+                            {
+                                if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <li>@Html.ActionLink("Rezerviši", "PsiCheckboxes", "Rezervacija")</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Book", "PsiCheckboxes", "Rezervacija")</li>
+                                }
+
+                            }
+
+                            <li>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    @Html.ActionLink("Kontakt", "Contact", "Home")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Contact", "Contact", "Home")
+                                }
+                            </li>
+
+                            <li>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    @Html.ActionLink("Reference", "Contact", "Home")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("References", "Contact", "Home")
+                                }
+                            </li>
+
+
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+
+
+
+                            @if (User.IsInRole("admin"))
+                            {
+
+                                <li>
+                                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        @Html.ActionLink("Rezervacije", "Index", "Rezervacija")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Bookings", "Index", "Rezervacija")
+                                    }
+
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ViewProfile", "Admin")"><i class="fas fa-user-cog"></i></a>
+                                </li>
+
+
+                            }
+
+                            @if (User.IsInRole("vlasnik"))
+                            {
+
+                                <li>
+                                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        @Html.ActionLink("Moje Rezervacije", "Index", "Rezervacija")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("My Bookings", "Index", "Rezervacija")
+                                    }
+
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ViewProfile", "Vlasnik")"><i class="fas fa-user"></i></a>
+                                </li>
+                            }
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div id="mainBody">
+            <div class="wrapper">
+                <div class="container content">
+                    @RenderBody()
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div id="mainFooter">
+            <footer class="margtop20">
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="page-header">
+                            <h4>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <span>Kontakt</span>
+                                }
+                                else
+                                {
+                                    <span>Contact</span>
+                                }
+                            </h4>
+                        </div>
+                        <ul class="list-inline padtop20">
+                            <li class="text-center"><a class="iconslatewhite" href="https://www.google.com/maps/place/44%C2%B046%2720.2%22N+20%C2%B019%2705.6%22E/&#64;44.7722794,20.3182169,545m/data=!3m2!1e3!4b1!4m5!3m4!1s0x0:0x76539cd1c8b644b8!8m2!3d44.7722794!4d20.3182169"><i class="fas fa-map-marker-alt fa-3x"></i><br />Adress, City</a></li>
+                            <li class="text-center"><i class="fas fa-phone fa-3x"></i><br />+000 555 11 11</li>
+                            <li class="text-center"><i class="fas fa-envelope fa-3x"></i><br />office@doghotel.com</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page-header">
+                            <h4>
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <span>Pratite nas</span>
+                                }
+                                else
+                                {
+                                    <span>Follow us</span>
+                                }
+                            </h4>
+                        </div>
+                        <ul class="list-inline padtop20">
+                            <li><a class="iconblack" href="https://www.facebook.com"><i class="fab fa-facebook fa-3x"></i></a></li>
+                            <li><a class="iconblack" href="http://twitter.com"><i class="fab fa-twitter fa-3x"></i></a></li>
+                            <li><a class="iconblack" href="https://www.instagram.com"><i class="fab fa-instagram fa-3x"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="minusrightpadd col-md-3 ">
+
+                        <a href="@Url.Action("Index", "Home")">
+                            <img src="~/Content/Img/logosDarkSlateGray.png" alt="Hotel za pse" class="logofooter rightalign">
+                        </a>
+
+                    </div>
+
+                </div><!--/gornji deo footer-->
+                <div class="panel-footer lrpadding">
+                    <div class="row lrpadding">
+                        <div class="col-md-6">
+                            <ul class="list-inline">
+                                <li>
+                                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        @Html.ActionLink("Početna", "Index", "Home")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Home", "Index", "Home")
+                                    }
+
+                                </li>
+                                <li>
+                                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        @Html.ActionLink("Usluge", "Index", "Usluga")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Services", "Index", "Usluga")
+                                    }
+                                </li>
+                                @if (!User.IsInRole("admin"))
+                                {
+                                    <li>
+                                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                        {
+                                            @Html.ActionLink("Rezerviši", "PsiCheckboxes", "Rezervacija")
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Book", "PsiCheckboxes", "Rezervacija")
+                                        }
+                                    </li>
+                                }
+
+                                <li>
+                                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                    {
+                                        @Html.ActionLink("Kontakt", "Contact", "Home")
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Contact", "Contact", "Home")
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            &copy; Teodora Majstorović
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span>i</span>
+                            }
+                            else
+                            {
+                                <span>and</span>
+                            }
+                             Maja Živković
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

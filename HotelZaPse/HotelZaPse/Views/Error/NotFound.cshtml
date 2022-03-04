@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "NotFound | Error";
+}
+
+@*da se ne prikazuje _Layout na ovaj strani*@
+@{
+    Layout = null;
+}
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
+@Scripts.Render("~/Scripts/script.js")
+@Styles.Render("~/Content/bootstrap.min.css")
+@Styles.Render("~/Content/all.min.css")
+@Styles.Render("~/Content/style.css")
+
+<div id="error-page-html">
+    <div id="error-page-body">
+        <div id="error-page">
+            <div class="content">
+
+                <h2 class="header" data-text="404">
+                    404
+                </h2>
+                <h4 data-text="Opps! Page not found">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Ups! Stranica nije pronađena</span>
+                    }
+                    else
+                    {
+                        <span>Opps! Page not found</span>
+                    }
+                </h4>
+                <p>
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Izvinite, stranica koju tražite nije pronađena.</span>
+                    }
+                    else
+                    {
+                        <span>Sorry, the page you're looking for doesn't exist.</span>
+                    }
+
+                </p>
+                <a class="btn btn-custom" href="javascript:history.back()">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Nazad</span>
+                    }
+                    else
+                    {
+                        <span>Back</span>
+                    }
+                </a>
+                <a class="btn btn-custom" href="@Url.Action("Index", "Home")">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <span>Početna</span>
+                    }
+                    else
+                    {
+                        <span>Home</span>
+                    }
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

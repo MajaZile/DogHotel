@@ -1,0 +1,66 @@
+﻿@model HotelZaPse.Models.BO.UslugaBo
+
+@{
+    ViewBag.Title = Model.Naziv + " | Usluga";
+}
+
+<div class="page-header">
+    <h2><i class="fas fa-concierge-bell fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;@Model.Naziv</h2>
+</div>
+
+
+<div class="row margtop20">
+    <div class="col-md-6">
+        <div class="opis">
+            <h4>
+                @Html.DisplayNameFor(model => model.Opis): 
+            </h4>
+            <p>
+                @Html.DisplayFor(model => model.Opis)
+            </p>
+        </div>
+
+        @if (User.IsInRole("admin"))
+        {
+
+    <div class="admin-usluga lrpadding">
+        <h4><span class="feature">Šifra: </span><span class="value">@Html.DisplayFor(model => model.Id)</span></h4>
+
+        <h4><span class="feature">Kapacitet: </span><span class="value">@Html.DisplayFor(model => model.Kapacitet)</span></h4>
+
+        <h4>
+            <span class="feature">Aktivna: </span>
+            <span class="value">
+                @if (Model.Aktivna == true)
+                {
+                    <span>Da</span>
+                }
+                else
+                {
+                    <span>Ne</span>
+                }
+
+            </span>
+        </h4>
+        
+        <h4><span class="feature">Poslednja izmena: </span><span class="value">
+
+                                                               <a href="@Url.Action("ViewProfile", "Admin", new { id = Model.Admin.Id })">
+                                                                   @Html.DisplayFor(model => model.Admin.Mail)
+                                                               </a>
+               
+         </span></h4>
+    </div>
+
+
+        }
+
+        <div class="price1 margbot20">
+            <h3>@Html.DisplayFor(model => model.Cena)<span> dinara / noć</span></h3>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <img src="~/Content/Img/4.jpg" alt="Hotel za pse" class="img-custom">
+    </div>
+</div>

@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HotelZaPseDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="adminID" />
+          </Key>
+          <Property Name="adminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pas">
+          <Key>
+            <PropertyRef Name="pasID" />
+            <PropertyRef Name="vlasnikID" />
+          </Key>
+          <Property Name="pasID" Type="int" Nullable="false" />
+          <Property Name="vlasnikID" Type="int" Nullable="false" />
+          <Property Name="imePsa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="rasa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pol" Type="bit" Nullable="false" />
+          <Property Name="sterilisan" Type="bit" Nullable="false" />
+          <Property Name="opis" Type="nvarchar(max)" />
+          <Property Name="obrisan" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rezervacija">
+          <Key>
+            <PropertyRef Name="rezervacijaID" />
+          </Key>
+          <Property Name="rezervacijaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="datumPrijavljivanja" Type="date" Nullable="false" />
+          <Property Name="datumOdjavljivanja" Type="date" Nullable="false" />
+          <Property Name="napomena" Type="nvarchar(max)" />
+          <Property Name="cena" Type="float" Nullable="false" />
+          <Property Name="uslugaID" Type="int" Nullable="false" />
+          <Property Name="vlasnikID" Type="int" Nullable="false" />
+          <Property Name="pasID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usluga">
+          <Key>
+            <PropertyRef Name="uslugaID" />
+          </Key>
+          <Property Name="uslugaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cena" Type="float" Nullable="false" />
+          <Property Name="opis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="kapacitet" Type="int" Nullable="false" />
+          <Property Name="aktivna" Type="bit" Nullable="false" />
+          <Property Name="adminID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vlasnik">
+          <Key>
+            <PropertyRef Name="vlasnikID" />
+          </Key>
+          <Property Name="vlasnikID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="adresa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Pas_Vlasnik">
+          <End Role="Vlasnik" Type="Self.Vlasnik" Multiplicity="1" />
+          <End Role="Pas" Type="Self.Pas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vlasnik">
+              <PropertyRef Name="vlasnikID" />
+            </Principal>
+            <Dependent Role="Pas">
+              <PropertyRef Name="vlasnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Pas">
+          <End Role="Pas" Type="Self.Pas" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pas">
+              <PropertyRef Name="pasID" />
+              <PropertyRef Name="vlasnikID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="pasID" />
+              <PropertyRef Name="vlasnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Usluga">
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="1" />
+          <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="uslugaID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="uslugaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usluga_Admin">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="1" />
+          <End Role="Usluga" Type="Self.Usluga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="adminID" />
+            </Principal>
+            <Dependent Role="Usluga">
+              <PropertyRef Name="adminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelZaPseDBModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pas" EntityType="Self.Pas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervacija" EntityType="Self.Rezervacija" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usluga" EntityType="Self.Usluga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vlasnik" EntityType="Self.Vlasnik" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pas_Vlasnik" Association="Self.FK_Pas_Vlasnik">
+            <End Role="Vlasnik" EntitySet="Vlasnik" />
+            <End Role="Pas" EntitySet="Pas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Pas" Association="Self.FK_Rezervacija_Pas">
+            <End Role="Pas" EntitySet="Pas" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Usluga" Association="Self.FK_Rezervacija_Usluga">
+            <End Role="Usluga" EntitySet="Usluga" />
+            <End Role="Rezervacija" EntitySet="Rezervacija" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usluga_Admin" Association="Self.FK_Usluga_Admin">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Usluga" EntitySet="Usluga" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HotelZaPseDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminModel">
+          <Key>
+            <PropertyRef Name="adminID" />
+          </Key>
+          <Property Name="adminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Uslugas" Relationship="Self.FK_Usluga_Admin" FromRole="Admin" ToRole="Usluga" />
+        </EntityType>
+        <EntityType Name="PasModel">
+          <Key>
+            <PropertyRef Name="pasID" />
+            <PropertyRef Name="vlasnikID" />
+          </Key>
+          <Property Name="pasID" Type="Int32" Nullable="false" />
+          <Property Name="vlasnikID" Type="Int32" Nullable="false" />
+          <Property Name="imePsa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="rasa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pol" Type="Boolean" Nullable="false" />
+          <Property Name="sterilisan" Type="Boolean" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="obrisan" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Vlasnik" Relationship="Self.FK_Pas_Vlasnik" FromRole="Pas" ToRole="Vlasnik" />
+          <NavigationProperty Name="Rezervacijas" Relationship="Self.FK_Rezervacija_Pas" FromRole="Pas" ToRole="Rezervacija" />
+        </EntityType>
+        <EntityType Name="RezervacijaModel">
+          <Key>
+            <PropertyRef Name="rezervacijaID" />
+          </Key>
+          <Property Name="rezervacijaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datumPrijavljivanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="datumOdjavljivanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="napomena" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cena" Type="Double" Nullable="false" />
+          <Property Name="uslugaID" Type="Int32" Nullable="false" />
+          <Property Name="vlasnikID" Type="Int32" Nullable="false" />
+          <Property Name="pasID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pas" Relationship="Self.FK_Rezervacija_Pas" FromRole="Rezervacija" ToRole="Pas" />
+          <NavigationProperty Name="Usluga" Relationship="Self.FK_Rezervacija_Usluga" FromRole="Rezervacija" ToRole="Usluga" />
+        </EntityType>
+        <EntityType Name="UslugaModel">
+          <Key>
+            <PropertyRef Name="uslugaID" />
+          </Key>
+          <Property Name="uslugaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cena" Type="Double" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="kapacitet" Type="Int32" Nullable="false" />
+          <Property Name="aktivna" Type="Boolean" Nullable="false" />
+          <Property Name="adminID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK_Usluga_Admin" FromRole="Usluga" ToRole="Admin" />
+          <NavigationProperty Name="Rezervacijas" Relationship="Self.FK_Rezervacija_Usluga" FromRole="Usluga" ToRole="Rezervacija" />
+        </EntityType>
+        <EntityType Name="VlasnikModel">
+          <Key>
+            <PropertyRef Name="vlasnikID" />
+          </Key>
+          <Property Name="vlasnikID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pass" Relationship="Self.FK_Pas_Vlasnik" FromRole="Vlasnik" ToRole="Pas" />
+        </EntityType>
+        <Association Name="FK_Usluga_Admin">
+          <End Role="Admin" Type="HotelZaPseDBModel.AdminModel" Multiplicity="1" />
+          <End Role="Usluga" Type="HotelZaPseDBModel.UslugaModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="adminID" />
+            </Principal>
+            <Dependent Role="Usluga">
+              <PropertyRef Name="adminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pas_Vlasnik">
+          <End Role="Vlasnik" Type="HotelZaPseDBModel.VlasnikModel" Multiplicity="1" />
+          <End Role="Pas" Type="HotelZaPseDBModel.PasModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vlasnik">
+              <PropertyRef Name="vlasnikID" />
+            </Principal>
+            <Dependent Role="Pas">
+              <PropertyRef Name="vlasnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Pas">
+          <End Role="Pas" Type="HotelZaPseDBModel.PasModel" Multiplicity="1" />
+          <End Role="Rezervacija" Type="HotelZaPseDBModel.RezervacijaModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pas">
+              <PropertyRef Name="pasID" />
+              <PropertyRef Name="vlasnikID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="pasID" />
+              <PropertyRef Name="vlasnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervacija_Usluga">
+          <End Role="Usluga" Type="HotelZaPseDBModel.UslugaModel" Multiplicity="1" />
+          <End Role="Rezervacija" Type="HotelZaPseDBModel.RezervacijaModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usluga">
+              <PropertyRef Name="uslugaID" />
+            </Principal>
+            <Dependent Role="Rezervacija">
+              <PropertyRef Name="uslugaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelZaPseDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminModels" EntityType="HotelZaPseDBModel.AdminModel" />
+          <EntitySet Name="PasModels" EntityType="HotelZaPseDBModel.PasModel" />
+          <EntitySet Name="RezervacijaModels" EntityType="HotelZaPseDBModel.RezervacijaModel" />
+          <EntitySet Name="UslugaModels" EntityType="HotelZaPseDBModel.UslugaModel" />
+          <EntitySet Name="VlasnikModels" EntityType="HotelZaPseDBModel.VlasnikModel" />
+          <AssociationSet Name="FK_Usluga_Admin" Association="Self.FK_Usluga_Admin">
+            <End Role="Admin" EntitySet="AdminModels" />
+            <End Role="Usluga" EntitySet="UslugaModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pas_Vlasnik" Association="Self.FK_Pas_Vlasnik">
+            <End Role="Vlasnik" EntitySet="VlasnikModels" />
+            <End Role="Pas" EntitySet="PasModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Pas" Association="Self.FK_Rezervacija_Pas">
+            <End Role="Pas" EntitySet="PasModels" />
+            <End Role="Rezervacija" EntitySet="RezervacijaModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervacija_Usluga" Association="Self.FK_Rezervacija_Usluga">
+            <End Role="Usluga" EntitySet="UslugaModels" />
+            <End Role="Rezervacija" EntitySet="RezervacijaModels" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HotelZaPseDBModelStoreContainer" CdmEntityContainer="HotelZaPseDBEntities">
+          <EntitySetMapping Name="AdminModels">
+            <EntityTypeMapping TypeName="HotelZaPseDBModel.AdminModel">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="adminID" ColumnName="adminID" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PasModels">
+            <EntityTypeMapping TypeName="HotelZaPseDBModel.PasModel">
+              <MappingFragment StoreEntitySet="Pas">
+                <ScalarProperty Name="pasID" ColumnName="pasID" />
+                <ScalarProperty Name="vlasnikID" ColumnName="vlasnikID" />
+                <ScalarProperty Name="imePsa" ColumnName="imePsa" />
+                <ScalarProperty Name="rasa" ColumnName="rasa" />
+                <ScalarProperty Name="pol" ColumnName="pol" />
+                <ScalarProperty Name="sterilisan" ColumnName="sterilisan" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="obrisan" ColumnName="obrisan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RezervacijaModels">
+            <EntityTypeMapping TypeName="HotelZaPseDBModel.RezervacijaModel">
+              <MappingFragment StoreEntitySet="Rezervacija">
+                <ScalarProperty Name="rezervacijaID" ColumnName="rezervacijaID" />
+                <ScalarProperty Name="datumPrijavljivanja" ColumnName="datumPrijavljivanja" />
+                <ScalarProperty Name="datumOdjavljivanja" ColumnName="datumOdjavljivanja" />
+                <ScalarProperty Name="napomena" ColumnName="napomena" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="uslugaID" ColumnName="uslugaID" />
+                <ScalarProperty Name="vlasnikID" ColumnName="vlasnikID" />
+                <ScalarProperty Name="pasID" ColumnName="pasID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UslugaModels">
+            <EntityTypeMapping TypeName="HotelZaPseDBModel.UslugaModel">
+              <MappingFragment StoreEntitySet="Usluga">
+                <ScalarProperty Name="uslugaID" ColumnName="uslugaID" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="kapacitet" ColumnName="kapacitet" />
+                <ScalarProperty Name="aktivna" ColumnName="aktivna" />
+                <ScalarProperty Name="adminID" ColumnName="adminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VlasnikModels">
+            <EntityTypeMapping TypeName="HotelZaPseDBModel.VlasnikModel">
+              <MappingFragment StoreEntitySet="Vlasnik">
+                <ScalarProperty Name="vlasnikID" ColumnName="vlasnikID" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

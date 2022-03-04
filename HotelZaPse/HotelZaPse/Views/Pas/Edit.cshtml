@@ -1,0 +1,267 @@
+﻿@model HotelZaPse.Models.BO.PasBo
+
+@{
+
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = Model.Ime + " | Izmena psa";
+    }
+    else
+    {
+        ViewBag.Title = Model.Ime + " | Edit dog";
+    }
+}
+<div class="page-header">
+
+    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        <h2>Izmeni psa</h2>
+    }
+    else
+    {
+        <h2>Edit dog</h2>
+    }
+</div>
+<div class="margtop20">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <input type="hidden" name="urlReferrer" value="@ViewBag.UrlReferrer" />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            @*podaci o vlasniku*@
+            @Html.HiddenFor(model => model.Vlasnik.Id)
+            @Html.HiddenFor(model => model.Vlasnik.Ime)
+            @Html.HiddenFor(model => model.Vlasnik.Prezime)
+            @Html.HiddenFor(model => model.Vlasnik.Telefon)
+            @Html.HiddenFor(model => model.Vlasnik.Adresa)
+            @Html.HiddenFor(model => model.Vlasnik.Mail)
+            @Html.HiddenFor(model => model.Vlasnik.Lozinka)
+
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Name</label>
+                }
+                <div class="col-md-8">
+                    <a href="#" data-toggle="popover" data-content="Ime psa ne može da se promeni.">
+
+                        @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", @readonly = "readonly" } })
+                    </a>
+                    @Html.ValidationMessageFor(model => model.Ime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Rasa, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Breed</label>
+                }
+            <div class="col-md-8">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <a href="#" data-toggle="popover" data-content="Rasa psa ne može da se promeni.">
+                        @Html.EditorFor(model => model.Rasa, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </a>
+                }
+                else
+                {
+                    <a href="#" data-toggle="popover" data-content="Breed can not be changed.">
+                        @Html.EditorFor(model => model.Rasa, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    </a>
+                }
+
+                @Html.ValidationMessageFor(model => model.Rasa, "", new { @class = "text-danger" })
+            </div>
+            </div>
+
+            <div class="form-group">
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Pol, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Gender</label>
+                }
+                <div class="col-md-2">
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <a href="#" data-toggle="popover" data-content="Pol ne može biti promenjen.">
+                            <label class="radiocontainer">
+
+                                @Html.RadioButtonFor(model => model.Pol, true, new { disabled = "disabled" })
+
+                                @*@Html.RadioButtonFor(model => model.Pol, true, new { disabled = "disabled" })*@
+                                <span class="radiocheckmark"></span>
+
+                                <p>Ženka</p>
+
+                            </label>
+                            <label class="radiocontainer">
+                                @Html.RadioButtonFor(model => model.Pol, false, new { disabled = "disabled" })
+                                <span class="radiocheckmark"></span>
+                                <p>Mužjak</p>
+
+                            </label>
+                            @Html.ValidationMessageFor(model => model.Pol, "", new { @class = "text-danger" })
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#" data-toggle="popover" data-content="Gender can not be changed.">
+                            <label class="radiocontainer">
+
+                                @Html.RadioButtonFor(model => model.Pol, true, new { disabled = "disabled" })
+
+                                @*@Html.RadioButtonFor(model => model.Pol, true, new { disabled = "disabled" })*@
+                                <span class="radiocheckmark"></span>
+
+                                <p>Female</p>
+
+                            </label>
+                            <label class="radiocontainer">
+                                @Html.RadioButtonFor(model => model.Pol, false, new { disabled = "disabled" })
+                                <span class="radiocheckmark"></span>
+                                <p>Male</p>
+
+                            </label>
+                            @Html.ValidationMessageFor(model => model.Pol, "", new { @class = "text-danger" })
+                        </a>
+                    }
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-2"></div>
+
+                <div class="col-md-2">
+
+
+                    @if (Model.Sterilisan == true)
+                    {
+                        if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <a href="#" data-toggle="popover" data-content="Podatak o sterilizaciji ne može da se promeni.">
+                                <div class="checkbox">
+                                    <label class="checkboxcontainer">
+                                        <p>Sterilisan</p>
+                                        @Html.EditorFor(model => model.Sterilisan, new { htmlAttributes = new { @type = "checkbox", disabled = "disabled" } })
+                                        <span class="checkmark"></span>
+
+                                        @Html.ValidationMessageFor(model => model.Sterilisan, "", new { @class = "text-danger" })
+                                    </label>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" data-toggle="popover" data-content="Neutering data can not be changed.">
+                                <div class="checkbox">
+                                    <label class="checkboxcontainer">
+                                        <p>Neutered</p>
+                                        @Html.EditorFor(model => model.Sterilisan, new { htmlAttributes = new { @type = "checkbox", disabled = "disabled" } })
+                                        <span class="checkmark"></span>
+
+                                        @Html.ValidationMessageFor(model => model.Sterilisan, "", new { @class = "text-danger" })
+                                    </label>
+                                </div>
+                            </a>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="checkbox">
+                            <label class="checkboxcontainer">
+
+                                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                                {
+                                    <p>Sterilisan</p>
+                                }
+                                else
+                                {
+                                    <p>Neutered</p>
+                                }
+                                @Html.EditorFor(model => model.Sterilisan, new { htmlAttributes = new { @type = "checkbox" } })
+                                <span class="checkmark"></span>
+
+                                @Html.ValidationMessageFor(model => model.Sterilisan, "", new { @class = "text-danger" })
+                            </label>
+                        </div>
+                    }
+                    @Html.ValidationMessageFor(model => model.Sterilisan, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="form-group">
+
+                @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+                }
+                else
+                {
+                    <label class="control-label col-md-2">Description</label>
+                }
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Opis, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <a class="btn btn-custom" href="javascript:history.back()">Odustani</a>
+                        <input type="submit" value="Snimi" class="btn btn-custom" />
+                    }
+                    else
+                    {
+                        <a class="btn btn-custom" href="javascript:history.back()">Cancel</a>
+                        <input type="submit" value="Save" class="btn btn-custom" />
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>

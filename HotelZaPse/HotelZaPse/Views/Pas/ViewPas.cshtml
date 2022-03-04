@@ -1,0 +1,240 @@
+﻿@model HotelZaPse.Models.BO.PasBo
+
+@{
+
+    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+    {
+        ViewBag.Title = Model.Ime + " | Pas";
+    }
+    else
+    {
+        ViewBag.Title = Model.Ime + " | Dog";
+    }
+}
+
+<div class="page-header">
+    <h2><i class="fas fa-paw fa-4x"></i>&nbsp;&nbsp;&nbsp;&nbsp;@Html.DisplayFor(model => model.Ime)</h2>
+</div>
+
+<div class="form-horizontal margtop20 col-md-offset-1">
+    <div class="form-group">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            <label for="vlasnik" class="control-label col-md-2">
+                Vlasnik
+            </label>
+        }
+        else
+        {
+            <label for="vlasnik" class="control-label col-md-2">
+                Owner
+            </label>
+        }
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @if (User.IsInRole("admin"))
+                {
+                    <a class="iconinheritwheat" href="@Url.Action("ViewProfileByAdmin", "Vlasnik", new { id = Model.Vlasnik.Id })">
+                        @Model.Vlasnik.Ime @Model.Vlasnik.Prezime
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("ViewProfile", "Vlasnik", new { id = Model.Vlasnik.Id })">
+                        @Model.Vlasnik.Ime @Model.Vlasnik.Prezime
+                    </a>
+                }
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Name</label>
+        }
+
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Ime)
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Rasa, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Breed</label>
+        }
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Rasa)
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Pol, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Gender</label>
+        }
+        <div class="col-md-8">
+
+            @if (Model.Pol == true)
+            {
+                if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p class="form-control-static">
+                        Ženka
+                    </p>
+                }
+                else
+                {
+                    <p class="form-control-static">
+                        Female
+                    </p>
+                }
+
+            }
+            else
+            {
+                if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p class="form-control-static">
+                        Mužjak
+                    </p>
+                }
+                else
+                {
+                    <p class="form-control-static">
+                        Male
+                    </p>
+                }
+
+            }
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Description</label>
+        }
+
+
+        <div class="col-md-8">
+            <p class="form-control-static">
+                @Html.DisplayFor(model => model.Opis)
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+
+        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+        {
+            @Html.LabelFor(model => model.Sterilisan, htmlAttributes: new { @class = "control-label col-md-2" })
+        }
+        else
+        {
+            <label class="control-label col-md-2">Neutered</label>
+        }
+        <div class="col-md-8">
+
+            @if (Model.Sterilisan == true)
+            {
+                if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p class="form-control-static">
+                        Da
+                    </p>
+                }
+                else
+                {
+                    <p class="form-control-static">
+                        Yes
+                    </p>
+                }
+            }
+            else
+            {
+                if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                {
+                    <p class="form-control-static">
+                        Ne
+                    </p>
+                }
+                else
+                {
+                    <p class="form-control-static">
+                        No
+                    </p>
+                }
+            }
+
+        </div>
+    </div>
+    @if (User.IsInRole("admin"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.Obrisan, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-8">
+
+                @if (Model.Obrisan == true)
+                {
+                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <p class="form-control-static">
+                            Da
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="form-control-static">
+                            Yes
+                        </p>
+                    }
+                }
+                else
+                {
+                    if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <p class="form-control-static">
+                            Ne
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="form-control-static">
+                            No
+                        </p>
+                    }
+                }
+
+            </div>
+        </div>
+    }
+
+</div>
+
+
+

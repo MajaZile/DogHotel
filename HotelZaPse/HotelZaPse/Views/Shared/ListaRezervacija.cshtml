@@ -1,0 +1,268 @@
+﻿@model IEnumerable<HotelZaPse.Models.BO.RezervacijaBo>
+
+@{ if (Model.Count() == 0)
+    {
+
+        <div class="row">
+            @if (User.IsInRole("vlasnik"))
+            {
+
+
+                <div class="col-md-6">
+                    <div class="opis">
+                        <h3>
+                            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <span>Nemate kreirane rezervacije</span>
+                            }
+                            else
+                            {
+                                <span>No previous bookings</span>
+                            }
+                        </h3>
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <p>
+                                Do sada niste rezervisali naše usluge. Klikom na dugme možete kreirati svoju prvu rezervaciju.
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                You have not booked our services so far. You can create your first reservation by clicking on the button bellow.
+                            </p>
+                        }
+
+                    </div>
+                    <div class="col-md-offset-2">
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            @Html.ActionLink("Rezerviši", "../Rezervacija/PsiCheckboxes", null, new { @class = "btn btn-custom", @type = "button" })
+
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Book", "../Rezervacija/PsiCheckboxes", null, new { @class = "btn btn-custom", @type = "button" })
+
+                        }
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <div class="col-md-6">
+                    <div class="opis">
+
+                        @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <h3>Nisu pronađene rezervacije za Vašu pretragu</h3>
+                        }
+                        else
+                        {
+                            <h3>No reservations were found for your search </h3>
+                        }
+
+
+                    </div>
+                </div>
+            }
+            <div class="col-md-6">
+                <img src="~/Content/Img/7.1.jpg" alt="Hotel za pse" class="img-custom">
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="opis">
+            @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+            {
+                <p>
+                    Rezervacije možete otkazivati sve do 24h pred početak boravka (datuma prijave).
+                </p>
+            }
+            else
+            {
+                <p>
+                    Reservations can be canceled up to 24 hours before the start of the stay (check-in date).
+                </p>
+            }
+
+        </div>
+
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    @if (User.IsInRole("admin"))
+                    {
+                        if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                        {
+                            <th>
+                                Vlasnik
+                            </th>
+                        }
+                        else
+                        {
+                            <th>
+                                Owner
+                            </th>
+                        }
+
+                    }
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <th>
+                            Pas
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Dog
+                        </th>
+                    }
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <th>
+                            Prijava
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Check-in
+                        </th>
+                    }
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <th>
+                            Odjava
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Check-out
+                        </th>
+                    }
+
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <th>
+                            Usluga
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Service
+                        </th>
+                    }
+
+                    @{if (User.IsInRole("admin"))
+                        {
+                            if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                            {
+                                <th>
+                                    Šifra
+                                </th>
+                            }
+                            else
+                            {
+                                <th>
+                                    Id
+                                </th>
+                            }
+                        }
+                    }
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <th>
+                            Napomena
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Note
+                        </th>
+                    }
+                    @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
+                    {
+                        <th>
+                            Cena
+                        </th>
+                    }
+                    else
+                    {
+                        <th>
+                            Price
+                        </th>
+                    }
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <td>
+                                <a class="iconblackhovwheat" href="@Url.Action("ViewProfileByAdmin", "Vlasnik", new { id = item.Pas.Vlasnik.Id })">
+                                    @item.Pas.Vlasnik.Mail &Rang;
+                                </a>
+
+                            </td>
+                        }
+                        <td>
+                            <a class="iconblackhovwheat" href="@Url.Action("ViewProfileByAdmin", "Pas", new { vid = item.Pas.Vlasnik.Id, pid = item.Pas.Id })">
+                                @item.Pas.Ime &Rang;
+                            </a>
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prijava)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Odjava)
+                        </td>
+
+                        <td>
+                            <a class="iconblackhovwheat" href="@Url.Action("ViewUsluga", "Usluga", new { id = item.Usluga.Id })">
+                                @item.Usluga.Naziv &Rang;
+                            </a>
+                        </td>
+                        @{if (User.IsInRole("admin"))
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Usluga.Id)
+                                </td>
+                            }
+                        }
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Napomena)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cena) din
+                        </td>
+                        <td>
+                            @*rezervacije se mogu otkazivati samo do dan (24h) pred datum prijave*@
+                            @if (DateTime.Now.AddDays(1) < item.Prijava)
+                            {
+                                <a class="iconblackhovwheat" href="@Url.Action("Delete", "Rezervacija", new { id = item.Id })">
+                                    <i class="far fa-calendar-times fa-2x"></i>
+                                </a>
+
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+}
+

@@ -1,0 +1,684 @@
+/* LAYOUT */
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* padding-top: 200px; */
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity:1;
+}
+/* potrebno za footer da popuni prostor gde je manji sadrzaj stranice*/ */
+html {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+    a:focus, a:hover {
+        color: wheat;
+        text-decoration: none;
+    }
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+/* header */
+.page-header {
+    padding: 0px;
+    margin: 0px 5px;
+}
+
+.logo {
+    height: 100px;
+    margin: 7px 0px;
+    display: block;
+    background-image: url(Img/logos.png) no-repeat 0 0 fixed;
+}
+
+.logofooter {
+    height: 100px;
+    margin-top:20px;
+    display: block;
+    background-image: url(Img/logos.png) no-repeat 0 0 fixed;
+}
+
+.inline {
+    display: inline-block;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+.lang-links {
+    margin-right: 0px;
+   /* padding-right: 5px;*/
+   padding-top: 10px;
+   color:white;
+}
+
+.lang-links a, .lang-links a:visited {
+    color:white;
+}
+
+.lang-links a:hover {
+    color:wheat;
+}
+
+.header-right-links {
+    margin-right: 0px;
+    margin-top: -10px;
+}
+/* zelena u zuto */
+.iconblack {
+    display: inline-grid;
+}
+
+.iconblack:visited{
+    color:darkslategrey;
+}
+
+    .iconblack:hover {
+        color: wheat;
+    }
+/* zelena u belo */
+.iconslatewhite {
+    color: darkslategrey;
+}
+
+    .iconslatewhite:hover {
+        color: white;
+    }
+/* zelena u zuto? */
+.iconblackhovwheat {
+    color: darkslategrey;
+}
+
+    .iconblackhovwheat:hover {
+        color: wheat;
+    }
+
+.iconinheritwheat {
+    color: #333;
+}
+
+    .iconinheritwheat:hover {
+        color: wheat;
+    }
+/* bela u zuto */
+.iconwhite {
+    color: white;
+    padding: 5px;
+    text-align: center;
+    display: inline-grid;
+    margin-top: 20px;
+}
+
+    .iconwhite:hover {
+        color: wheat;
+    }
+
+.header3 {
+    margin: auto;
+}
+
+.header-p {
+    color: wheat;
+    font-weight: 100;
+    font-size: 20px;
+    text-align: center;
+}
+/* kraj header-a */
+
+/* navigacija */
+.nav > li {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nav li:hover {
+    transition: 1s;
+    transform: scale(1.5);
+}
+
+.navbar.navbar-inverse.navbar-fixed-top {
+    background-color: darkslategrey;
+    border: none;
+}
+
+/* kraj navigacije */
+
+/* footer */
+footer {
+    /* padding: 10px 70px; */
+    color: #2F4F4F;
+    background-color: wheat;
+}
+
+.panel-footer {
+    color: wheat;
+    /* background-color: #304040; */
+    background-color: #2F4F4F;
+}
+
+.iconblack {
+    color: #2F4F4F;
+    display: inline-grid;
+}
+
+    .iconblack:hover {
+        color: white;
+        display: inline-grid;
+    }
+.rightalign {
+    float: right;
+}
+.minusrightpadd {
+    padding-right: 0px!important;
+}
+/* kraj footer-a */
+
+/* za sve */
+.opacityimg{
+    opacity:0.5;
+}
+.padtop20 {
+    padding-top: 20px;
+}
+.centar {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.img-custom {
+    max-width: 100%;
+}
+
+.col-md-6 {
+    padding: 0px;
+}
+
+.margtop20 {
+    margin-top: 20px;
+}
+
+.margbot20 {
+    margin-bottom: 20px;
+}
+
+.lrpadding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* LAYOUT KRAJ */
+
+/* pricing  */
+.pricing-table {
+    padding: 20px 0px;
+}
+
+    .pricing-table .heading {
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-table .item {
+        background-color: #fff5e3;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        border-top: 2px solid darkslategray;
+        padding: 30px;
+        overflow: hidden;
+        position: relative;
+    }
+    /* svi sem poslednjeg */
+    .pricing-table .col-md-5:not(:last-child) .item {
+        margin-bottom: 30px;
+    }
+
+    .pricing-table .item p {
+        text-align: center;
+        margin-top: 20px;
+        height: 50px;
+        opacity: 0.7;
+    }
+
+    .pricing-table .features .feature {
+        font-weight: 600;
+    }
+
+    .pricing-table .features h4, .price h3 {
+        text-align: center;
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    .pricing-table .price, .price1 {
+        margin: 15px auto;
+        text-align: center;
+    }
+
+        .pricing-table .price h4, .price1 h3 {
+            font-size: 45px;
+            color: darkslategray;
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-table .price span, .price1 span {
+            font-size: 20px;
+            color: darkslategray;
+            text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+    /* dugme dodaj uslugu */
+    .pricing-table .new-usluga {
+        height: 700px;
+        background-color: #fff5e3;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        border-top: 2px solid darkslategray;
+        padding: 30px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        display: table;
+    }
+
+.vert-align {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fas.fa-plus.fa-10x {
+    width: 50%;
+    padding-left: 25%;
+    color: darkslategray;
+}
+
+    .fas.fa-plus.fa-10x:hover {
+        color: darkslategray;
+        transition: 1s;
+        color: wheat
+    }
+/* prikaz usluge koristi pricing */
+.admin-usluga .value {
+    color: black;
+    opacity: 0.8;
+    font-size: smaller;
+}
+
+/* pricing kraj */
+
+
+
+/* DUGME */
+.btn-custom {
+    color: darkslategrey;
+    background-color: white;
+    border: darkslategrey 2px solid;
+    font-weight: bolder;
+    width: 100px;
+    margin: 5px;
+    border-radius: 7px;
+}
+
+    .btn-custom:hover {
+        background-color: wheat;
+    }
+
+
+/* PRIKAZ TEKSTOVA */
+.opis {
+    padding: 0px 20px 20px 20px;
+    margin: auto 0;
+}
+
+    .opis h2 {
+        text-align: center;
+    }
+
+    .opis h3 {
+        text-align: center;
+    }
+
+    .opis h4 {
+        text-align: left;
+    }
+
+    .opis p {
+        text-align: justify;
+    }
+
+
+
+.thumbnail {
+    display: block;
+    padding: 4px;
+    margin: 20px 0px;
+    border: none;
+}
+
+    .thumbnail img {
+        height: 100px;
+    }
+
+.caption {
+    text-align: center;
+}
+
+
+
+
+/* FORME */
+
+.form-control:focus {
+    border-color: darkslategray;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(47,79,79,.6);
+}
+
+
+
+/* CHECKBOX */
+/* Customize the label (the container) */
+.checkboxcontainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    .checkboxcontainer p {
+        padding-left: 20px;
+        font-weight: 500;
+    }
+
+    /* Hide the browser's default checkbox */
+    .checkboxcontainer input[type=checkbox] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: wheat;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    ;
+    border-radius: 7px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxcontainer:hover input[type=checkbox] ~ .checkmark {
+    background-color: wheat;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxcontainer input[type=checkbox]:checked ~ .checkmark {
+    background-color: darkslategray;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxcontainer input[type=checkbox]:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxcontainer .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+
+
+
+
+
+/* RADIO BUTTON */
+
+/* Customize the label (the container) */
+.radiocontainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkboxcontainer p {
+    padding-left: 20px;
+    font-weight: 500;
+}
+
+/* Hide the browser's default radio button */
+.radiocontainer input[type=radio] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom radio button */
+.radiocheckmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: wheat;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    ;
+    border-radius: 7px;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radiocontainer:hover input[type=radio] ~ .radiocheckmark {
+    background-color: wheat;
+}
+
+/* When the radio button is checked, add a blue background */
+.radiocontainer input[type=radio]:checked ~ .radiocheckmark {
+    background-color: darkslategray;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radiocheckmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radiocontainer input[type=radio]:checked ~ .radiocheckmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radiocontainer .radiocheckmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+/* TABLE */
+
+.tbody tr {
+    color: darkslategray;
+}
+
+.table > tbody > tr > td {
+    line-height: 1.42857143;
+    vertical-align: middle;
+    border-top: none;
+}
+
+.table > tbody > tr {
+    border-top: 2px solid #ddd;
+}
+
+.table thead th {
+    color: darkslategrey;
+    text-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+tbody:nth-child(even) tr:nth-child(odd) {
+    background-color: white;
+}
+
+tbody:nth-child(even) tr:nth-child(even) {
+    background-color: #fff5e3;
+}
+
+
+/* ERROR PAGE */
+
+#error-page-html {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+#error-page-body {
+    height: 100vh;
+    background-color: darkslategray;
+    background-size: 400%;
+}
+
+#error-page {
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    right: 15%;
+    bottom: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff5e3;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+    border-radius: 3px;
+}
+
+    #error-page .content {
+        max-width: 600px;
+        text-align: center;
+    }
+
+        #error-page .content h2.header {
+            font-size: 18vw;
+            line-height: 1em;
+            position: relative;
+            color: darkslategray;
+        }
+
+        #error-page .content h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #000;
+            font-size: 2em;
+            max-width: 600px;
+            position: relative;
+        }
+
+        #error-page .content p {
+            font-size: 1.2em;
+            color: #0d0d0d;
+        }
+
+
+/*UslugaDetails*/
+
+.usluga-details {
+    color: lightsalmon;
+}
+
+/* DELETE */
+.red-text {
+    color: darkred;
+}
+
+
+/*FOOTER*/
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#mainContainer {
+    min-height: 100%;
+    position: relative;
+}
+
+#mainHeader {
+}
+
+#mainBody {
+    padding-bottom: 60px; /* Height of the footer */
+}
+
+#mainFooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Height of the footer */
+}

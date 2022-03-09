@@ -6,16 +6,16 @@
     <title>Hotel za Pse - @ViewBag.Title</title>
 
     @Scripts.Render("~/bundles/modernizr")
+
     @Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
     @Scripts.Render("~/Scripts/script.js")
-    @Styles.Render("~/Content/bootstrap.min.css")
-    @Styles.Render("~/Content/all.min.css")
-    @Styles.Render("~/Content/style.css")
+
+    @Styles.Render("~/Content/css")
 
     <link href="~/Content/mystyle.css" rel="stylesheet">
 </head>
 <body>
-    
+
     <div id="mainContainer">
         <div id="mainHeader">
             <div class="navbar navbar-inverse navbar-fixed-top">
@@ -347,7 +347,7 @@
                             {
                                 <span>and</span>
                             }
-                             Maja Živković
+                            Maja Živković
                         </div>
                     </div>
                 </div>
@@ -358,6 +358,7 @@
 
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
 
     @RenderSection("scripts", required: false)

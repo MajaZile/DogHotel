@@ -7,17 +7,14 @@
 
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Scripts/jquery-3.4.1.min.js")
-    @Scripts.Render("~/Scripts/bootstrap.js")
-    @Scripts.Render("~/Scripts/bootstrap.min.js")
     @Scripts.Render("~/Scripts/script.js")
-    @Styles.Render("~/Content/bootstrap.min.css")
-    @Styles.Render("~/Content/all.min.css")
-    @Styles.Render("~/Content/style.css")
+
+    @Styles.Render("~/Content/css")
 
     <link href="~/Content/mystyle.css" rel="stylesheet">
 </head>
 <body>
-    
+
     <div id="mainContainer">
         <div id="mainHeader">
             <div class="navbar navbar-inverse navbar-fixed-top">
@@ -32,11 +29,11 @@
                             <div class="col-md-4">
                                 @if (HttpContext.Current.Request.Cookies["LangCookie"].Value == "lang=RS")
                                 {
-                                    <h1 class="header-p">*Vaš najbolji prijatelj<br />zaslužuje samo najbolje</h1>
+                                    <h1 class="header-p">Vaš najbolji prijatelj<br />zaslužuje samo najbolje</h1>
                                 }
                                 else
                                 {
-                                    <h1 class="header-p">*Your best friend<br />deserves only the best</h1>
+                                    <h1 class="header-p">Your best friend<br />deserves only the best</h1>
                                 }
 
                             </div>
@@ -349,7 +346,7 @@
                             {
                                 <span>and</span>
                             }
-                             Maja Živković
+                            Maja Živković
                         </div>
                     </div>
                 </div>
@@ -360,6 +357,7 @@
 
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
 
     @RenderSection("scripts", required: false)
